@@ -369,6 +369,7 @@ function _wp_handle_upload( &$file, $overrides, $time, $action ) {
 
 	// Move the file to the uploads dir.
 	$new_file = $uploads['path'] . "/$filename";
+	$new_file = mb_convert_encoding($new_file, 'utf-8', 'big5');
 	if ( 'wp_handle_upload' === $action ) {
 		$move_new_file = @ move_uploaded_file( $file['tmp_name'], $new_file );
 	} else {
@@ -413,7 +414,7 @@ function _wp_handle_upload( &$file, $overrides, $time, $action ) {
 	 * @param string $context The type of upload action. Values include 'upload' or 'sideload'.
 	 */
 	return apply_filters( 'wp_handle_upload', array(
-		'file' => $new_file,
+		'file' => $uploads['url'] . "/$filename",
 		'url'  => $url,
 		'type' => $type
 	), 'wp_handle_sideload' === $action ? 'sideload' : 'upload' );

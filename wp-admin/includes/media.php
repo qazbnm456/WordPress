@@ -2816,6 +2816,7 @@ function attachment_submitbox_metadata() {
 
 	$file = get_attached_file( $post->ID );
 	$filename = esc_html( wp_basename( $file ) );
+	$filename = substr($file, strrpos($file, '/') + 1);
 
 	$media_dims = '';
 	$meta = wp_get_attachment_metadata( $post->ID );
